@@ -1,5 +1,6 @@
 package com.demo.API;
 
+import com.demo.server.Encryption;
 import com.demo.server.Login;
 import com.demo.server.Order;
 import com.demo.server.PayOrder;
@@ -11,6 +12,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Controller
 public class Api {
+
+
+    @RequestMapping("/getMoney")
+    @ResponseBody
+    public static String getMoney(String str) {
+
+        String responseEntity;
+
+        responseEntity = Encryption.getMoney(str);
+
+        return responseEntity;
+    }
+
+
+    @RequestMapping("/encryption")
+    @ResponseBody
+    public static String getName(String type) {
+
+        String responseEntity;
+
+        responseEntity = Encryption.getEncryption(type);
+
+        return responseEntity;
+    }
+
 
     @RequestMapping("/login")
     @ResponseBody
@@ -54,7 +80,7 @@ public class Api {
         String helpInfo;
 
         helpInfo =
-                "URL地址：http://127.0.0.1:9527<br/>" +
+                "URL地址：http://127.0.0.1:5201<br/>" +
                         "接口一：登录接口，账号admin,密码123123，登录成功后返回token值，作为其他接口调用<br/>" +
                         "接口地址：/login <br/>" +
                         "参数1：username=admin（需要生成数据类型，目前接口只支持生成webh5数据）<br/>" +
@@ -69,7 +95,11 @@ public class Api {
                         "接口地址：/pay <br/>" +
                         "参数1：token=Login接口返回的TOKEN值<br/>" +
                         "参数2：productId=1 （必须写入刚使用order接口时的productId）<br/>" +
-                        "参数3：orderId=order接口返回的oderId <br/>"
+                        "参数3：orderId=order接口返回的oderId <br/>" +
+                        "接口四： 返回加密后的数据。<br/>" +
+                        "接口地址：/encryption <br/>" +
+                        "参数1：type=AES<br/>"
+
         ;
 
         return helpInfo;
